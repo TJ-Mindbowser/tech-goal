@@ -1,16 +1,8 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import {
-  Container,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  Link,
-  OutlinedInput,
-  Typography,
-} from "@mui/material";
-import { Search } from "@mui/icons-material";
+import { Container, Link, Typography } from "@mui/material";
+import { User } from "./Users";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 function DrawerAppBar() {
   return (
@@ -35,90 +27,7 @@ function DrawerAppBar() {
           borderRadius: "20px",
         }}
       >
-        <Container
-          sx={{
-            backgroundColor: "#262626",
-            borderRadius: "20px 0 0 20px",
-            width: "50%",
-          }}
-        >
-          <Container sx={{ my: "1em" }}>
-            <Typography
-              component="p"
-              sx={{ fontSize: "20px", color: "#F8FAFC" }}
-            >
-              Patients
-            </Typography>
-            <Typography
-              component="p"
-              sx={{ fontSize: "15px", color: "#7F7F7F" }}
-            >
-              12 Patients
-            </Typography>
-          </Container>
-          <Container>
-            <FormControl
-              sx={{ backgroundColor: "#4A4B4B", borderRadius: "20px" }}
-              fullWidth
-              variant="outlined"
-            >
-              <OutlinedInput
-                id="outlined-adornment-password"
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      edge="end"
-                    >
-                      <Search />
-                    </IconButton>
-                  </InputAdornment>
-                }
-                placeholder="Password"
-              />
-            </FormControl>
-          </Container>
-          <Box sx={{ mt: "2em", color: "#7F7F7F" }}>
-            <Container sx={{ display: "flex", flexDirection: "column" }}>
-              <Link
-                color="grey"
-                sx={{ p: "1em" }}
-                variant="subtitle1"
-                href="#"
-                underline="none"
-              >
-                Tanishq Joshi
-              </Link>
-              <Link
-                color="grey"
-                sx={{ p: "1em" }}
-                variant="subtitle1"
-                href="#"
-                underline="none"
-              >
-                Samar Hardia
-              </Link>
-              <Link
-                color="grey"
-                sx={{ p: "1em" }}
-                variant="subtitle1"
-                href="#"
-                underline="none"
-              >
-                Abhishek Jain
-              </Link>
-              <Link
-                color="grey"
-                sx={{ p: "1em" }}
-                variant="subtitle1"
-                href="#"
-                underline="none"
-              >
-                Jaydeep Singh
-              </Link>
-            </Container>
-          </Box>
-        </Container>
+        <User />
         <Container
           sx={{
             backgroundColor: "#1F1F1F",
