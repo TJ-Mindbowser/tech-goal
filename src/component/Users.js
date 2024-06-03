@@ -5,20 +5,37 @@ import {
   FormControl,
   IconButton,
   InputAdornment,
-  Link,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   OutlinedInput,
-  Tooltip,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 export const User = () => {
   const users = useSelector((state) => state.Users);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [select, setSelect] = useState();
+  const [filterUser, setFilteredUser] = useState(users);
+  useEffect(() => {
+    searchByName(searchKeyword, users);
+  }, [searchKeyword]);
+
+  const searchByName = (keyword, data) => {
+    // Convert the keyword to lowercase for case-insensitive search
+    const keywordLower = keyword.toLowerCase();
+
+    // Search for matching names
+    const results = data.filter((item) =>
+      item.name.toLowerCase().includes(keywordLower)
+    );
+    setFilteredUser(results);
+    return results;
+  };
+
   return (
     <Container
       sx={{
@@ -50,20 +67,23 @@ export const User = () => {
                 </IconButton>
               </InputAdornment>
             }
-            placeholder="Password"
+            placeholder="Search Patient"
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
           />
         </FormControl>
       </Container>
       <Box sx={{ color: "#7F7F7F" }}>
         <Container sx={{ display: "flex", flexDirection: "column" }}>
-          {users.map((user, id) => {
+          {filterUser.map((user, id) => {
             return (
               <List disablePadding={true} sx={{ mt: "5px" }}>
                 <ListItem disablePadding={true}>
                   <ListItemButton
                     component="a"
-                    selected={true}
+                    selected={select === id}
                     href={`#${user.name}`}
+                    onClick={() => setSelect(id)}
                   >
                     <ListItemText primary={user.name} />
                   </ListItemButton>

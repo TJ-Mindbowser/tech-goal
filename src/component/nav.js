@@ -1,9 +1,10 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import { Button, Container, Link, List, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { User } from "./Users";
 import { NoteList } from "./List";
+import { NoteDetails } from "./NotesDetail";
 function DrawerAppBar() {
   return (
     <Box
@@ -29,33 +30,7 @@ function DrawerAppBar() {
       >
         <User />
         <NoteList />
-        <Container
-          sx={{
-            border: "1px solid #7F7F7F",
-            backgroundColor: "#1F1F1F",
-            borderRadius: "0 20px 20px 0",
-          }}
-        >
-          <Container>
-            <Container sx={{ color: "white" }}>
-              <Typography>Tanishq</Typography>
-              <Typography>
-                Added on : timestamp | Last modified : timestamp
-              </Typography>
-            </Container>
-            <Container sx={{ color: "grey" }}>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Convallis tellus id interdum velit laoreet. Enim eu turpis
-                egestas pretium. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Convallis tellus id interdum velit laoreet.
-                Enim eu turpis egestas pretium
-              </Typography>
-            </Container>
-          </Container>
-        </Container>
+        <NoteDetails />
       </Box>
     </Box>
   );
