@@ -6,7 +6,12 @@ import {
   IconButton,
   InputAdornment,
   Link,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
   OutlinedInput,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -14,7 +19,6 @@ import { useSelector } from "react-redux";
 
 export const User = () => {
   const users = useSelector((state) => state.Users);
-  console.log("🚀 ~ User ~ users:", users)
   return (
     <Container
       sx={{
@@ -28,7 +32,7 @@ export const User = () => {
           Patients
         </Typography>
         <Typography component="p" sx={{ fontSize: "15px", color: "#7F7F7F" }}>
-          12 Patients
+          {users.length} Patients
         </Typography>
       </Container>
       <Container>
@@ -50,49 +54,23 @@ export const User = () => {
           />
         </FormControl>
       </Container>
-      <Box sx={{ mt: "2em", color: "#7F7F7F" }}>
+      <Box sx={{ color: "#7F7F7F" }}>
         <Container sx={{ display: "flex", flexDirection: "column" }}>
           {users.map((user, id) => {
             return (
-              <Link
-                key={id}
-                color="grey"
-                sx={{ p: "1em" }}
-                variant="subtitle1"
-                href="#"
-                underline="none"
-              >
-                {user.name}
-              </Link>
+              <List disablePadding={true} sx={{ mt: "5px" }}>
+                <ListItem disablePadding={true}>
+                  <ListItemButton
+                    component="a"
+                    selected={true}
+                    href={`#${user.name}`}
+                  >
+                    <ListItemText primary={user.name} />
+                  </ListItemButton>
+                </ListItem>
+              </List>
             );
           })}
-          <Link
-            color="grey"
-            sx={{ p: "1em" }}
-            variant="subtitle1"
-            href="#"
-            underline="none"
-          >
-            Samar Hardia
-          </Link>
-          <Link
-            color="grey"
-            sx={{ p: "1em" }}
-            variant="subtitle1"
-            href="#"
-            underline="none"
-          >
-            Abhishek Jain
-          </Link>
-          <Link
-            color="grey"
-            sx={{ p: "1em" }}
-            variant="subtitle1"
-            href="#"
-            underline="none"
-          >
-            Jaydeep Singh
-          </Link>
         </Container>
       </Box>
     </Container>
