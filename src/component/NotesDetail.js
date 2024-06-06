@@ -1,6 +1,12 @@
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography, Container, selectClasses } from "@mui/material";
+import { useSelector } from "react-redux";
 
 export const NoteDetails = () => {
+  const { Notes, SelectedNote, SelectedUser, Users } = useSelector(
+    (state) => state
+  );
+  const note = SelectedNote ? Notes[SelectedNote] : {};
+  const user = SelectedUser ? Users[SelectedUser - 1] : "";
   return (
     <Box
       sx={{
@@ -11,31 +17,27 @@ export const NoteDetails = () => {
         width: "100%",
       }}
     >
-      <Box
-        sx={{
-          borderBottom: "1px solid #7F7F7F",
-          color: "white",
-          px: "2px",
-          py: "1em",
-        }}
-      >
-        <Container>
-          <Typography>Tanishq</Typography>
-          <Typography>
-            Added on : timestamp | Last modified : timestamp
-          </Typography>
-        </Container>
-      </Box>
-      <Container sx={{ color: "grey", mt: "1em" }}>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis
-          tellus id interdum velit laoreet. Enim eu turpis egestas pretium.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis
-          tellus id interdum velit laoreet. Enim eu turpis egestas pretium
-        </Typography>
-      </Container>
+      {note?.name && (
+        <>
+          <Box
+            sx={{
+              borderBottom: "1px solid #7F7F7F",
+              color: "white",
+              px: "2px",
+              py: "1em",
+            }}
+          >
+            <Container>
+              <Typography>{user?.name}</Typography>
+              <Typography>Added on : 2024-05-02 12:01:31 AM</Typography>
+            </Container>
+          </Box>
+          <Container sx={{ color: "grey", mt: "1em" }}>
+            {note?.name}
+            <Typography>{note.name}</Typography>
+          </Container>
+        </>
+      )}
     </Box>
   );
 };

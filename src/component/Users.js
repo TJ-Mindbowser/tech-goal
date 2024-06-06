@@ -13,16 +13,25 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../slice/selected-user";
 
 export const User = () => {
   const users = useSelector((state) => state.Users);
+  const dispatch = useDispatch();
   const [searchKeyword, setSearchKeyword] = useState("");
   const [select, setSelect] = useState();
   const [filterUser, setFilteredUser] = useState(users);
+
+  //Function to search user
   useEffect(() => {
     searchByName(searchKeyword, users);
   }, [searchKeyword]);
+
+  //Action to save selected user state to store
+  useEffect(() => {
+    dispatch(selectUser(select));
+  }, [select]);
 
   const searchByName = (keyword, data) => {
     // Convert the keyword to lowercase for case-insensitive search
@@ -81,9 +90,9 @@ export const User = () => {
                 <ListItem disablePadding={true}>
                   <ListItemButton
                     component="a"
-                    selected={select === id}
+                    selected={select === user.id}
                     href={`#${user.name}`}
-                    onClick={() => setSelect(id)}
+                    onClick={() => setSelect(user.id)}
                   >
                     <ListItemText primary={user.name} />
                   </ListItemButton>

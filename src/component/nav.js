@@ -1,9 +1,8 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import { Container, Typography } from "@mui/material";
 import { User } from "./Users";
-import { NoteList } from "./List";
+import { NoteList } from "./NotesList";
 import { NoteDetails } from "./NotesDetail";
 function DrawerAppBar() {
   return (
