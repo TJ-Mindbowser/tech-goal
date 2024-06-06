@@ -1,10 +1,14 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import { User } from "./Users";
 import { NoteList } from "./NotesList";
 import { NoteDetails } from "./NotesDetail";
-function DrawerAppBar() {
+
+interface DrawerAppBarProps {
+  window?: () => Window;
+}
+
+const DrawerAppBar: React.FC<DrawerAppBarProps> = ({ window }) => {
   return (
     <Box
       component="main"
@@ -23,7 +27,7 @@ function DrawerAppBar() {
           width: "95%",
           height: "95vh",
           display: "flex",
-          border: "1px solid ##7F7F7F",
+          border: "1px solid #7F7F7F", // Fixed double hash issue here
           borderRadius: "20px",
         }}
       >
@@ -33,14 +37,6 @@ function DrawerAppBar() {
       </Box>
     </Box>
   );
-}
-
-DrawerAppBar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
 };
 
 export default DrawerAppBar;

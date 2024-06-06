@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -12,26 +13,37 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
 import { selectNote } from "../slice/selected-note";
 
-export const NoteList = () => {
+interface Note {
+  id: number;
+  name: string;
+  userId: number;
+  content: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+}
+
+export const NoteList: React.FC = () => {
   const dispatch = useDispatch();
-  const [selectedNote, setSelectedNote] = useState(null);
-  const [openModal, setOpenModal] = useState(false);
-  const { SelectedUser, Notes, Users } = useSelector((state) => state);
-  const notes = SelectedUser
-    ? Notes.filter((note) => note.userId === SelectedUser)
+  const [selectedNote, setSelectedNote] = useState<number | null>(null);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const { SelectedUser, Notes, Users } = useSelector((state: any) => state);
+  const notes: Note[] = SelectedUser
+    ? Notes.filter((note: Note) => note.userId === SelectedUser)
     : [];
 
   useEffect(() => {
     if (selectedNote !== null) {
       dispatch(selectNote(selectedNote));
     }
-  }, [selectedNote]);
+  }, [selectedNote, dispatch]);
 
   const style = {
-    position: "absolute",
+    position: "absolute" as const,
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
@@ -76,16 +88,16 @@ export const NoteList = () => {
             </Container>
             <Box sx={{ mr: "10px" }}>
               <Button variant="contained" onClick={() => setOpenModal(true)}>
-                <AddIcon color="grey" />
+                {/* <AddIcon color="grey" /> */}
               </Button>
             </Box>
           </Box>
           <Box sx={{ mt: "1em", color: "#7F7F7F" }}>
             <Container sx={{ display: "flex", flexDirection: "column" }}>
-              <List disablePadding={true} sx={{ mt: "5px" }}>
-                {notes.map((note, id) => (
-                  <div key={id}>
-                    <ListItem disablePadding={true}>
+              <List disablePadding sx={{ mt: "5px" }}>
+                {notes.map((note: Note) => (
+                  <div key={note.id}>
+                    <ListItem disablePadding>
                       <ListItemButton
                         onClick={() => {
                           setSelectedNote(note.id);

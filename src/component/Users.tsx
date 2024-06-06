@@ -15,25 +15,33 @@ import {
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../slice/selected-user";
+// import { RootState } from "../store"; 
 
-export const User = () => {
-  const users = useSelector((state) => state.Users);
+// Define a type for the user
+interface User {
+  id: string;
+  name: string;
+}
+
+export const User: React.FC = () => {
+  // Use the defined User type
+  const users = useSelector((state: any) => state.Users) as User[];
   const dispatch = useDispatch();
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [select, setSelect] = useState();
-  const [filterUser, setFilteredUser] = useState(users);
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
+  const [select, setSelect] = useState<string | undefined>();
+  const [filterUser, setFilteredUser] = useState<User[]>(users);
 
-  //Function to search user
+  // Function to search user
   useEffect(() => {
     searchByName(searchKeyword, users);
-  }, [searchKeyword]);
+  }, [searchKeyword, users]);
 
-  //Action to save selected user state to store
+  // Action to save selected user state to store
   useEffect(() => {
     dispatch(selectUser(select));
-  }, [select]);
+  }, [select, dispatch]);
 
-  const searchByName = (keyword, data) => {
+  const searchByName = (keyword: string, data: User[]): User[] => {
     // Convert the keyword to lowercase for case-insensitive search
     const keywordLower = keyword.toLowerCase();
 
@@ -84,22 +92,20 @@ export const User = () => {
       </Container>
       <Box sx={{ color: "#7F7F7F" }}>
         <Container sx={{ display: "flex", flexDirection: "column" }}>
-          {filterUser.map((user, id) => {
-            return (
-              <List disablePadding={true} sx={{ mt: "5px" }}>
-                <ListItem disablePadding={true}>
-                  <ListItemButton
-                    component="a"
-                    selected={select === user.id}
-                    href={`#${user.name}`}
-                    onClick={() => setSelect(user.id)}
-                  >
-                    <ListItemText primary={user.name} />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            );
-          })}
+          {filterUser.map((user) => (
+            <List key={user.id} disablePadding sx={{ mt: "5px" }}>
+              <ListItem disablePadding>
+                <ListItemButton
+                  component="a"
+                  selected={select === user.id}
+                  href={`#${user.name}`}
+                  onClick={() => setSelect(user.id)}
+                >
+                  <ListItemText primary={user.name} />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          ))}
         </Container>
       </Box>
     </Container>

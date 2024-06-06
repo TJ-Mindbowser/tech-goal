@@ -1,12 +1,26 @@
-import { Box, Typography, Container, selectClasses } from "@mui/material";
+import React from "react";
+import { Box, Typography, Container } from "@mui/material";
 import { useSelector } from "react-redux";
 
-export const NoteDetails = () => {
+interface Note {
+  id: number;
+  name: string;
+  content: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+}
+
+export const NoteDetails: React.FC = () => {
   const { Notes, SelectedNote, SelectedUser, Users } = useSelector(
-    (state) => state
+    (state: any) => state
   );
-  const note = SelectedNote ? Notes[SelectedNote] : {};
-  const user = SelectedUser ? Users[SelectedUser - 1] : "";
+
+  const note: Note | undefined = SelectedNote ? Notes[SelectedNote] : undefined;
+  const user: User | undefined = SelectedUser ? Users[SelectedUser - 1] : undefined;
+
   return (
     <Box
       sx={{
@@ -17,7 +31,7 @@ export const NoteDetails = () => {
         width: "100%",
       }}
     >
-      {note?.name && (
+      {note && note.name && (
         <>
           <Box
             sx={{
@@ -33,7 +47,6 @@ export const NoteDetails = () => {
             </Container>
           </Box>
           <Container sx={{ color: "grey", mt: "1em" }}>
-            {note?.name}
             <Typography>{note.name}</Typography>
           </Container>
         </>
