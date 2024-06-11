@@ -10,10 +10,13 @@ import {
   ListItemText,
   Divider,
   Modal,
+  TextareaAutosize,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useSelector, useDispatch } from "react-redux";
 import { selectNote } from "../slice/selected-note";
+import { addNote } from "../slice/notes-list";
+
 
 interface Note {
   id: number;
@@ -29,6 +32,7 @@ interface User {
 export const NoteList: React.FC = () => {
   const dispatch = useDispatch();
   const [selectedNote, setSelectedNote] = useState<number | null>(null);
+  const [textareaValue, setTextareaValue] = useState('');
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { SelectedUser, Notes } = useSelector((state: any) => state);
   const notes = SelectedUser
@@ -39,6 +43,14 @@ export const NoteList: React.FC = () => {
       dispatch(selectNote(selectedNote));
     }
   }, [selectedNote, dispatch]);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const note = { id: 7, userId: SelectedUser.id, name: textareaValue }
+    dispatch(addNote(note))
+    setOpenModal(false);
+    setTextareaValue('')
+  };
 
   const style = {
     position: "absolute" as const,
@@ -121,12 +133,18 @@ export const NoteList: React.FC = () => {
         aria-describedby="parent-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextareaAutosize
+              minRows={5}
+              placeholder="Enter your note here"
+              value={textareaValue}
+              onChange={(e) => setTextareaValue(e.target.value)}
+              style={{ width: '100%', marginTop: '16px', marginBottom: '16px' }}
+            />
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
+          </form>
         </Box>
       </Modal>
     </Box>

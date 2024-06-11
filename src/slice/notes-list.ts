@@ -40,7 +40,13 @@ export const noteSlice = createSlice({
   initialState,
   reducers: {
     addNote: (state, action: PayloadAction<Note>) => {
-      state.push(action.payload);
+      const highestId = state.reduce((maxId, note) => Math.max(note.id, maxId), 0);
+      // Assign the next incremented ID to the new note
+      const data = {
+        ...action.payload,
+        id: highestId + 1,
+      };
+      state.push(data);
       return state
     },
     // Assuming getUserNote was a typo in the original file since it's not defined.
