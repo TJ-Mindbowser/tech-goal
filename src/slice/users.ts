@@ -1,6 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = [
+// Define the User type
+interface User {
+  id: number;
+  name: string;
+}
+
+// Define the type for the state
+type UsersState = User[];
+
+const initialState: UsersState = [
   { id: 1, name: "Tanishq Joshi" },
   { id: 2, name: "Samar Hardia" },
   { id: 3, name: "Abhishek Jain" },
@@ -11,8 +20,8 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    addUser: (state) => {
-      state.push(state);
+    addUser: (state, action: PayloadAction<User>) => {
+      state.push(action.payload);
     },
   },
 });

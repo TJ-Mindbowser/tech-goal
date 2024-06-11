@@ -17,9 +17,8 @@ export const NoteDetails: React.FC = () => {
   const { Notes, SelectedNote, SelectedUser, Users } = useSelector(
     (state: any) => state
   );
-
-  const note: Note | undefined = SelectedNote ? Notes[SelectedNote] : undefined;
-  const user: User | undefined = SelectedUser ? Users[SelectedUser - 1] : undefined;
+  const note = SelectedNote ? Notes.filter((e: any) => e.id === SelectedNote) : []
+  const user = SelectedUser ? Users.filter((e: any) => e.id === SelectedUser.id) : []
 
   return (
     <Box
@@ -31,7 +30,7 @@ export const NoteDetails: React.FC = () => {
         width: "100%",
       }}
     >
-      {note && note.name && (
+      {note.length && note[0]?.name && (
         <>
           <Box
             sx={{
@@ -42,12 +41,12 @@ export const NoteDetails: React.FC = () => {
             }}
           >
             <Container>
-              <Typography>{user?.name}</Typography>
+              <Typography>{user[0]?.name}</Typography>
               <Typography>Added on : 2024-05-02 12:01:31 AM</Typography>
             </Container>
           </Box>
           <Container sx={{ color: "grey", mt: "1em" }}>
-            <Typography>{note.name}</Typography>
+            <Typography>{note[0].name}</Typography>
           </Container>
         </>
       )}

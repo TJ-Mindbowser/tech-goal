@@ -1,6 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = [
+// Define a type for the state
+interface Note {
+  id: number;
+  userId: number;
+  name: string;
+}
+
+const initialState: Note[] = [
   {
     id: 1,
     userId: 1,
@@ -32,14 +39,15 @@ export const noteSlice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    addNote: (state) => {
-      state.push(state);
-      return state;
+    addNote: (state, action: PayloadAction<Note>) => {
+      state.push(action.payload);
+      return state
     },
+    // Assuming getUserNote was a typo in the original file since it's not defined.
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addNote, getUserNote } = noteSlice.actions;
+export const { addNote } = noteSlice.actions;
 
 export default noteSlice.reducer;

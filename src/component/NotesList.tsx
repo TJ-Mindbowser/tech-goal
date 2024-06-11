@@ -19,7 +19,6 @@ interface Note {
   id: number;
   name: string;
   userId: number;
-  content: string;
 }
 
 interface User {
@@ -31,11 +30,10 @@ export const NoteList: React.FC = () => {
   const dispatch = useDispatch();
   const [selectedNote, setSelectedNote] = useState<number | null>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const { SelectedUser, Notes, Users } = useSelector((state: any) => state);
-  const notes: Note[] = SelectedUser
-    ? Notes.filter((note: Note) => note.userId === SelectedUser)
+  const { SelectedUser, Notes } = useSelector((state: any) => state);
+  const notes = SelectedUser
+    ? Notes.filter((note: Note) => note.userId === SelectedUser.id)
     : [];
-
   useEffect(() => {
     if (selectedNote !== null) {
       dispatch(selectNote(selectedNote));
@@ -88,7 +86,7 @@ export const NoteList: React.FC = () => {
             </Container>
             <Box sx={{ mr: "10px" }}>
               <Button variant="contained" onClick={() => setOpenModal(true)}>
-                {/* <AddIcon color="grey" /> */}
+                <AddIcon />
               </Button>
             </Box>
           </Box>

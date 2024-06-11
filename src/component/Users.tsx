@@ -15,11 +15,12 @@ import {
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../slice/selected-user";
+import { selectNote } from "../slice/selected-note";
 // import { RootState } from "../store"; 
 
 // Define a type for the user
 interface User {
-  id: string;
+  id: number;
   name: string;
 }
 
@@ -28,7 +29,7 @@ export const User: React.FC = () => {
   const users = useSelector((state: any) => state.Users) as User[];
   const dispatch = useDispatch();
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [select, setSelect] = useState<string | undefined>();
+  const [select, setSelect] = useState<User | null>(null);
   const [filterUser, setFilteredUser] = useState<User[]>(users);
 
   // Function to search user
@@ -39,6 +40,7 @@ export const User: React.FC = () => {
   // Action to save selected user state to store
   useEffect(() => {
     dispatch(selectUser(select));
+    dispatch(selectNote(null));
   }, [select, dispatch]);
 
   const searchByName = (keyword: string, data: User[]): User[] => {
@@ -97,9 +99,9 @@ export const User: React.FC = () => {
               <ListItem disablePadding>
                 <ListItemButton
                   component="a"
-                  selected={select === user.id}
+                  selected={select?.id === user.id}
                   href={`#${user.name}`}
-                  onClick={() => setSelect(user.id)}
+                  onClick={() => setSelect(user)}
                 >
                   <ListItemText primary={user.name} />
                 </ListItemButton>
