@@ -13,7 +13,7 @@ const App: React.FC = () => {
 
   return (
     <Box>
-      <ThemeProvider theme={isDarkMode ? lightTheme : darkTheme}>
+      <ThemeProvider theme={!isDarkMode ? lightTheme : darkTheme}>
         <DrawerAppBar />
       </ThemeProvider>
     </Box>

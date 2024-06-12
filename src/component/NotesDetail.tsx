@@ -31,7 +31,7 @@ export const NoteDetails: React.FC = () => {
         width: "100%",
       }}
     >
-      {note.length && note[0]?.name && (
+      {!!note.length && note[0]?.name && (
         <>
           <Box
             sx={{
