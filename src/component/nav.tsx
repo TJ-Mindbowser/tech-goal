@@ -4,7 +4,7 @@ import { User } from "./Users";
 import { NoteList } from "./NotesList";
 import { NoteDetails } from "./NotesDetail";
 import { useTheme } from "@mui/material";
-import { MaterialUISwitch } from "./switch";
+import SwitchComponent from "./switch";
 interface DrawerAppBarProps {
   window?: () => Window;
 }
@@ -24,7 +24,7 @@ const DrawerAppBar: React.FC<DrawerAppBarProps> = ({ window }) => {
         backgroundColor: theme.palette.background.default,
       }}
     >
-      <MaterialUISwitch sx={{ marginLeft: 'auto',marginRight:'6em' }} />
+      <SwitchComponent />
       <Box
         component="section"
         sx={{

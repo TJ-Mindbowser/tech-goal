@@ -5,12 +5,15 @@ import "@fontsource/roboto/700.css";
 import { Box, ThemeProvider } from "@mui/material";
 import DrawerAppBar from "./component/nav";
 import React from 'react';
-import { customTheme } from "./theme";
+import { useSelector } from "react-redux";
+import { lightTheme, darkTheme } from './theme';
 
 const App: React.FC = () => {
+  const isDarkMode = useSelector((state: any) => state.Theme.isDarkMode);
+
   return (
     <Box>
-      <ThemeProvider theme={customTheme}>
+      <ThemeProvider theme={isDarkMode ? lightTheme : darkTheme}>
         <DrawerAppBar />
       </ThemeProvider>
     </Box>
