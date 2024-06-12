@@ -11,6 +11,7 @@ import {
   Divider,
   Modal,
   TextareaAutosize,
+  useTheme,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useSelector, useDispatch } from "react-redux";
@@ -30,6 +31,7 @@ interface User {
 }
 
 export const NoteList: React.FC = () => {
+  const theme = useTheme()
   const dispatch = useDispatch();
   const [selectedNote, setSelectedNote] = useState<number | null>(null);
   const [textareaValue, setTextareaValue] = useState('');
@@ -67,7 +69,7 @@ export const NoteList: React.FC = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "#1F1F1F",
+        backgroundColor: theme.palette.primary.dark,
         width: "50%",
       }}
     >
@@ -85,13 +87,13 @@ export const NoteList: React.FC = () => {
             <Container>
               <Typography
                 component="p"
-                sx={{ fontSize: "20px", color: "#F8FAFC" }}
+                sx={{ fontSize: "20px", color: theme.palette.primary.contrastText }}
               >
                 Notes
               </Typography>
               <Typography
                 component="p"
-                sx={{ fontSize: "15px", color: "#7F7F7F" }}
+                sx={{ fontSize: "15px", color: theme.palette.divider }}
               >
                 {notes.length} Notes
               </Typography>
@@ -102,7 +104,7 @@ export const NoteList: React.FC = () => {
               </Button>
             </Box>
           </Box>
-          <Box sx={{ mt: "1em", color: "#7F7F7F" }}>
+          <Box sx={{ mt: "1em", color: theme.palette.divider }}>
             <Container sx={{ display: "flex", flexDirection: "column" }}>
               <List disablePadding sx={{ mt: "5px" }}>
                 {notes.map((note: Note) => (

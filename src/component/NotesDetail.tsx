@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography, Container, useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
 
 interface Note {
@@ -14,6 +14,7 @@ interface User {
 }
 
 export const NoteDetails: React.FC = () => {
+  const theme = useTheme()
   const { Notes, SelectedNote, SelectedUser, Users } = useSelector(
     (state: any) => state
   );
@@ -23,8 +24,8 @@ export const NoteDetails: React.FC = () => {
   return (
     <Box
       sx={{
-        border: "1px solid #7F7F7F",
-        backgroundColor: "#1F1F1F",
+        border: `1px solid ${theme.palette.background.default}`,
+        backgroundColor: theme.palette.primary.dark,
         borderRadius: "0 20px 20px 0",
         py: "4px",
         width: "100%",
@@ -34,22 +35,23 @@ export const NoteDetails: React.FC = () => {
         <>
           <Box
             sx={{
-              borderBottom: "1px solid #7F7F7F",
-              color: "white",
+              borderBottom: `1px solid ${theme.palette.divider}`,
+              color: theme.palette.primary.contrastText,
               px: "2px",
               py: "1em",
             }}
           >
             <Container>
               <Typography>{user[0]?.name}</Typography>
-              <Typography>Added on : 2024-05-02 12:01:31 AM</Typography>
+              <Typography sx={{ color: theme.palette.divider }}>Added on : 2024-05-02 12:01:31 AM</Typography>
             </Container>
           </Box>
-          <Container sx={{ color: "grey", mt: "1em" }}>
+          <Container sx={{ color: theme.palette.divider, mt: "1em" }}>
             <Typography>{note[0].name}</Typography>
           </Container>
         </>
-      )}
-    </Box>
+      )
+      }
+    </Box >
   );
 };

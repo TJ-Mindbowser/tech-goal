@@ -11,6 +11,7 @@ import {
   ListItemText,
   OutlinedInput,
   Typography,
+  useTheme,
 } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +32,7 @@ export const User: React.FC = () => {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [select, setSelect] = useState<User | null>(null);
   const [filterUser, setFilteredUser] = useState<User[]>(users);
+  const theme = useTheme()
 
   // Function to search user
   useEffect(() => {
@@ -58,22 +60,22 @@ export const User: React.FC = () => {
   return (
     <Container
       sx={{
-        backgroundColor: "#262626",
+        backgroundColor: theme.palette.primary.main,
         borderRadius: "20px 0 0 20px",
         width: "50%",
       }}
     >
       <Container sx={{ my: "1em" }}>
-        <Typography component="p" sx={{ fontSize: "20px", color: "#F8FAFC" }}>
+        <Typography component="p" sx={{ fontSize: "20px", color: theme.palette.primary.contrastText }}>
           Patients
         </Typography>
-        <Typography component="p" sx={{ fontSize: "15px", color: "#7F7F7F" }}>
+        <Typography component="p" sx={{ fontSize: "15px", color: theme.palette.divider }}>
           {users.length} Patients
         </Typography>
       </Container>
       <Container>
         <FormControl
-          sx={{ backgroundColor: "#4A4B4B", borderRadius: "20px" }}
+          sx={{ backgroundColor: theme.palette.secondary.main, borderRadius: theme.shape.borderRadius }}
           fullWidth
           variant="outlined"
         >
@@ -92,7 +94,7 @@ export const User: React.FC = () => {
           />
         </FormControl>
       </Container>
-      <Box sx={{ color: "#7F7F7F" }}>
+      <Box sx={{ color: theme.palette.divider }}>
         <Container sx={{ display: "flex", flexDirection: "column" }}>
           {filterUser.map((user) => (
             <List key={user.id} disablePadding sx={{ mt: "5px" }}>
